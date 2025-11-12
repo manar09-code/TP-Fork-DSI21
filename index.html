@@ -1,40 +1,69 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>TP Fork - DSI21</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Équipe DSI21 — TP Fork</title>
 
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #eef2f3, #8e9eab);
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
+    <style>
+      /* --- BASE STYLES --- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    .container {
-      max-width: 900px;
-      margin: 40px auto;
-      background-color: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      padding: 40px;
-      text-align: center;
-    }
+      body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(120deg, #89f7fe, #66a6ff);
+        background-size: 200% 200%;
+        animation: gradientMove 12s ease infinite;
+        color: #333;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
 
-    /* --- TITRE AVEC ANIMATION --- */
+      @keyframes gradientMove {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* --- CONTAINER --- */
+      .container {
+        flex: 1;
+        max-width: 1100px;
+        margin: 60px auto;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 25px;
+        padding: 50px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        backdrop-filter: blur(10px);
+        animation: fadeInUp 1.5s ease;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
     h1 {
       color: #005f99;
-      margin-bottom: 20px;
-      font-size: 3rem; /* plus grand */
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%   { transform: scale(1); }
-      50%  { transform: scale(1.1); }
-      100% { transform: scale(1); }
+      margin-bottom: 10px;
     }
 
     h2 {
@@ -51,36 +80,38 @@
       margin-top: 20px;
     }
 
-    ul.membres li {
-      background-color: #e6f3ff;
-      margin: 8px 0;
-      padding: 10px;
-      border-radius: 8px;
-      transition: transform 0.2s ease;
-    }
+      ul.membres li {
+        background: #e7f3ff;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-weight: 500;
+        transition: all 0.3s;
+      }
 
-    ul.membres li:hover {
-      transform: scale(1.03);
-      background-color: #cfe8ff;
-    }
+      ul.membres li:hover {
+        background: #cfe4ff;
+        transform: translateY(-3px);
+      }
 
-    /* --- Section grille --- */
-    .grid-demo {
-      max-width: 900px;
-      margin: 40px auto;
-      text-align: center;
-    }
+      /* --- GRILLE DES MEMBRES --- */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        margin-top: 40px;
+      }
 
-    .grid-demo h2 {
-      color: #0ea5a4;
-      margin-bottom: 25px;
-    }
+      @media (max-width: 900px) {
+        .grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 20px;
-    }
+      @media (max-width: 600px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
 
     .member {
       background: #0ea5a4;
@@ -90,10 +121,19 @@
       transition: transform 0.2s;
     }
 
-    .member:hover {
-      transform: scale(1.05);
-      background: #0c8f8d;
+    .member img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      border: 2px solid #fff;
     }
+
+      .member:hover img {
+        transform: scale(1.15);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+      }
 
     .member p {
       margin: 0;
@@ -101,96 +141,143 @@
       font-size: 1rem;
     }
 
-    /* --- Style pour les images --- */
-    .member img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 50%; /* images rondes */
-      margin-bottom: 10px;
-      border: 3px solid #fff;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+      .project-section ul {
+        margin-top: 10px;
+        margin-left: 40px;
+        color: #333;
+      }
 
-    .member img:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-    }
+      .project-section li {
+        margin-bottom: 8px;
+      }
 
-    /* --- Style du bouton --- */
-    button {
-      margin-top: 30px;
-      background-color: #005f99;
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 8px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0, 95, 153, 0.3);
-    }
+      /* --- BOUTON --- */
+      button {
+        margin-top: 50px;
+        padding: 14px 35px;
+        font-size: 1.1rem;
+        background: linear-gradient(135deg, #0078b7, #00a8ff);
+        color: #fff;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 12px rgba(0, 120, 183, 0.4);
+      }
 
-    button:hover {
-      background-color: #0077cc;
-      transform: scale(1.05);
-      box-shadow: 0 6px 12px rgba(0, 95, 153, 0.4);
-    }
+      button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 10px 20px rgba(0, 120, 183, 0.5);
+        background: linear-gradient(135deg, #00a8ff, #0078b7);
+      }
 
-    button:active {
-      transform: scale(0.98);
-    }
-  </style>
-</head>
+      /* --- FOOTER --- */
+      footer {
+        background: linear-gradient(135deg, #0078b7, #00a8ff);
+        color: white;
+        text-align: center;
+        padding: 30px 20px;
+        position: relative;
+        box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.15);
+      }
 
-<body>
-  <div class="container">
-    <h1>Bienvenue au TP Fork - DSI21</h1>
-    <p>Ce projet permet d'apprendre l'utilisation de Git et GitHub : fork, commit, push, pull request et merge.</p>
+      footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60%;
+        height: 3px;
+        background: white;
+        border-radius: 2px;
+        animation: glowLine 3s infinite alternate;
+      }
 
-    <h2>Membres du groupe :</h2>
-    <ul class="membres">
-      <li>Mahmoud Saadaoui — DSI21</li>
-      <li>Eya Ben Belgacem — DSI21</li>
-      <li>Manar Dgachi — DSI21</li>
-      <li>Zayneb Bellil — DSI21</li>
-      <li>Islem Dridi — DSI21</li>
-      <li>Issrae Werghemmi — DSI21</li>
-    </ul>
+      @keyframes glowLine {
+        from {
+          box-shadow: 0 0 5px #fff;
+        }
+        to {
+          box-shadow: 0 0 20px #fff;
+        }
+      }
 
-    <section class="grid-demo">
-      <h2>Équipe TP Fork — 2025/2026</h2>
+      .footer-content {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .footer-content p {
+        margin-top: 15px;
+        font-size: 0.95rem;
+        opacity: 0.9;
+      }
+
+      .socials {
+        margin-top: 10px;
+      }
+
+      .socials a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.4rem;
+        margin: 0 10px;
+        transition: all 0.3s ease;
+      }
+
+      .socials a:hover {
+        color: #ffd166;
+        transform: scale(1.2);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Équipe DSI21</h1>
+      <p class="subtitle">
+        Projet <b>TP Fork</b> — Collaboration, créativité et GitHub 💻✨
+      </p>
+
+      <ul class="membres">
+        <li>Mahmoud Saadaoui</li>
+        <li>Eya Ben Belgacem</li>
+        <li>Manar Dgachi</li>
+        <li>Zayneb Bellil</li>
+        <li>Islem Dridi</li>
+        <li>Issrae Werghemmi</li>
+      </ul>
 
       <div class="grid">
         <div class="member">
-          <img src="WhatsApp Image 2025-11-12 at 03.06.44.jpeg" alt="Islem">
-          <p>Islem Dridi</p>
-        </div>
-
-        <div class="member">
-          <img src="WhatsApp Image 2025-11-12 at 02.55.12.jpeg" alt="Eya">
-          <p>Eya Ben Belgacem</p>
-        </div>
-
-        <div class="member">
-          <img src="WhatsApp Image 2025-11-12 at 03.01.33.jpeg" alt="Mahmoud">
+          <img src="WhatsApp Image 2025-11-12 at 03.01.33.jpeg" alt="Mahmoud" />
           <p>Mahmoud Saadaoui</p>
         </div>
 
         <div class="member">
-          <img src="WhatsApp Image 2025-11-12 at 03.04.46.jpeg" alt="Issrae">
-          <p>Issrae Werghemmi</p>
+          <img src="WhatsApp Image 2025-11-12 at 02.55.12.jpeg" alt="Eya" />
+          <p>Eya Ben Belgacem</p>
         </div>
 
         <div class="member">
-          <img src="WhatsApp Image 2025-11-12 at 02.54.42.jpeg" alt="Manar">
+          <img src="WhatsApp Image 2025-11-12 at 02.54.42.jpeg" alt="Manar" />
           <p>Manar Dgachi</p>
         </div>
 
         <div class="member">
-          <img src="16e5ece4-0457-47e2-a747-0b636786d066.jpeg" alt="Zayneb">
+          <img src="WhatsApp Image 2025-11-12 at 03.06.44.jpeg" alt="Islem" />
+          <p>Islem Dridi</p>
+        </div>
+
+        <div class="member">
+          <img src="16e5ece4-0457-47e2-a747-0b636786d066.jpeg" alt="Zayneb" />
           <p>Zayneb Bellil</p>
+        </div>
+
+        <div class="member">
+          <img src="WhatsApp Image 2025-11-12 at 03.04.46.jpeg" alt="Issrae" />
+          <p>Issrae Werghemmi</p>
         </div>
       </div>
     </section>
@@ -203,6 +290,112 @@
       alert("Bouton cliqué !");
     }
   </script>
+<h1>Bienvenue au TP Fork - DSI21</h1>
+<p>Ce projet sert à apprendre GitHub : Fork, Commit, Push, Pull Request et Merge.</p>
+
+<h2>Membres du groupe :</h2>
+<ul>
+    <li>Saadaoui Mahmoud DSI21</li>
+    <li>Degachi Manar</li>
+    <li>Dridi Islem</li>
+    <li>Werghemi Issra</li>
+    <li>Ben belgacem Eya</li>
+    <li>Bellil Zaineb</li>
+</ul>
+<section class="grid-demo">
+  <h2>Équipe TP Fork — 2025/2026</h2>
+
+  <div class="grid">
+    <div class="member">
+      <img src="WhatsApp Image 2025-11-12 at 03.06.44.jpeg" alt="Islem">
+      <p>Islem Dridi</p>
+    </div>
+
+    <div class="member">
+      <img src="WhatsApp Image 2025-11-12 at 02.55.12.jpeg" alt="Eya">
+      <p>Eya Ben belgacem</p>
+    </div>
+
+    <div class="member">
+      <img src="WhatsApp Image 2025-11-12 at 03.01.33.jpeg" alt="Mahmoud">
+      <p>Mahmoud Saadaoui</p>
+    </div>
+
+    <div class="member">
+      <img src="WhatsApp Image 2025-11-12 at 03.04.46.jpeg" alt="Issrae">
+      <p>Issrae Werghemmi </p>
+    </div>
+
+    <div class="member">
+      <img src="WhatsApp Image 2025-11-12 at 02.54.42.jpeg" alt="Manar">
+      <p>Manar Dgachi</p>
+    </div>
+
+    <div class="member">
+      <img src="16e5ece4-0457-47e2-a747-0b636786d066.jpeg" alt="Zayneb Bellil">
+      <p>Zayneb Bellil</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid-demo {
+    max-width: 900px;
+    margin: 40px auto;
+    font-family: sans-serif;
+    text-align: center;
+  }
+
+  .grid-demo h2 {
+    color: #0ea5a4;
+    margin-bottom: 25px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 20px;
+  }
+
+  .member {
+    background: #0ea5a4;
+    color: #fff;
+    border-radius: 12px;
+    padding: 15px;
+    transition: transform 0.2s;
+  }
+
+  .member img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    border: 2px solid #fff;
+  }
+
+  .member:hover {
+    transform: scale(1.05);
+    background: #0c8f8d;
+  }
+
+  .member p {
+    margin: 0;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  </style>
+<script>
+  function afficherMessage() {
+    alert("Bouton cliqué !");
+  }
+</script>
+<center>
+<button onclick="afficherMessage()">Clique-ici</button>
+</center>
+
+
+<button onclick="afficherMessage()">Clique-moi</button>
 </body>
 </html>
 
